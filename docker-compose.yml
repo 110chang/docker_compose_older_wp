@@ -2,14 +2,12 @@ version: "3"
 services:
   mysql:
     image: mysql:5.5
-    container_name: mysql
     volumes:
       - datastore:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
   pma:
     image: phpmyadmin/phpmyadmin
-    container_name: pma
     ports:
       - '8080:80'
     environment:
@@ -19,10 +17,11 @@ services:
       - mysql
   web:
     build: "./web"
-    container_name: "web"
     ports:
       - "3000:80"
     volumes:
       - ./www:/var/www
+    depends_on:
+      - mysql
 volumes:
   datastore:

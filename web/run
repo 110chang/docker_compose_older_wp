@@ -1,5 +1,11 @@
 #!/bin/bash
 set -e
 
+# 言語設定
+update-locale LANG=ja_JP.UTF-8 LANGUAGE="ja_JP:ja" && . /etc/default/locale
+
+# mod_rewriteを使用する
+a2enmod rewrite
+
 # Apacheの環境変数を読み込み、Apache2をフォアグランドで起動。これによりコンテナ起動時にApacheが常時起動になる
 source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
